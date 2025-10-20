@@ -1,0 +1,49 @@
+--------------------------------------
+ SLEAP 1.5.1 instalation easy guide
+--------------------------------------
+
+1. Open Windows power shell 
+2. pip install uv
+
+3.(optional: create enviorenment) uv venv sleap-env
+4.(optional: only if env was created) source sleap-env/bin/activate
+
+5. uv pip install "sleap[pypi]==1.5.1"
+(If everything went well open the sleap gui with step 6.)
+6. Write in power shell terminal: sleap-label
+
+You should be inside the SLEAP GUI now! 
+
+-----------------------------------
+OPENING THE PROJECT  
+-----------------------------------
+
+Select: File -> Open Project -> search for the project slp file (colab.slp in this case) 
+
+
+NOTE: All the blue instances are the frames used for training and validation split!
+Yellow instances (only on the fly1.2.mp4 vídeo) are previous test predictions (from the best model in this case)
+
+------------------------------------
+TRAINING SETUP ON GOOGLE COLAB
+------------------------------------
+
+1. zip and upload the "sleap" folder to your google drive (unzip it after uploading)  
+
+(The "sleap" folder has everything you need for training even all the trained models presented in the report) 
+(NOTE: The folder must be named exactly "sleap", erase the extra text)  
+
+2. Open in colab the notebook Training_and_inference_using_Google_Drive
+
+3. Follow the notebook
+
+------------------------------------
+OPENING THE TEST MODELS PREDICTIONS
+------------------------------------
+On the SLEAP GUI
+
+1. File-> Open Project -> (go to the desired model folder and find the .sl file) predictions.slp
+
+NOTE: in case "ERROR" he cannot find the vídeos directory -> go and select the vídeo missing (videos folder -> fly1.2.mp4) 
+
+
