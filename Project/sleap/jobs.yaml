@@ -1,0 +1,5 @@
+inference: []
+training:
+- cfg: single_instance.yaml
+  run_path: models/NoneNonesingle_instance_251017_172528
+  train_labels: colab.pkg.slp
