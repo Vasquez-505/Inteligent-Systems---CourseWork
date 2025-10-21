@@ -1,0 +1,205 @@
+data_config:
+  train_labels_path:
+  - colab.pkg.slp
+  val_labels_path: null
+  validation_fraction: 0.1
+  test_file_path: null
+  provider: LabelsReader
+  user_instances_only: true
+  data_pipeline_fw: torch_dataset
+  cache_img_path: null
+  use_existing_imgs: false
+  delete_cache_imgs_after_training: true
+  preprocessing:
+    ensure_rgb: true
+    ensure_grayscale: false
+    max_height: 182
+    max_width: 682
+    scale: 1.0
+    crop_size: null
+    min_crop_size: 100
+  use_augmentations_train: false
+  augmentation_config:
+    intensity:
+      uniform_noise_min: 0.0
+      uniform_noise_max: 1.0
+      uniform_noise_p: 0.0
+      gaussian_noise_mean: 5.0
+      gaussian_noise_std: 0.0
+      gaussian_noise_p: 0.0
+      contrast_min: 0.5
+      contrast_max: 1.75
+      contrast_p: 0.0
+      brightness_min: 0.0
+      brightness_max: 2.0
+      brightness_p: 0.0
+    geometric:
+      rotation_min: -15.0
+      rotation_max: 15.0
+      scale_min: 0.9
+      scale_max: 1.1
+      translate_width: 0.0
+      translate_height: 0.0
+      affine_p: 1.0
+      erase_scale_min: 0.0001
+      erase_scale_max: 0.01
+      erase_ratio_min: 1.0
+      erase_ratio_max: 1.0
+      erase_p: 0.0
+      mixup_lambda_min: 0.01
+      mixup_lambda_max: 0.05
+      mixup_p: 0.0
+  skeletons:
+  - nodes:
+    - name: head1
+    - name: thorax1
+    - name: abdomen1
+    - name: forelegR1
+    - name: forelegL1
+    - name: midlegR1
+    - name: midlegL1
+    - name: hindlegR1
+    - name: hindlegL1
+    edges:
+    - source:
+        name: thorax1
+      destination:
+        name: head1
+    - source:
+        name: thorax1
+      destination:
+        name: abdomen1
+    - source:
+        name: thorax1
+      destination:
+        name: forelegR1
+    - source:
+        name: thorax1
+      destination:
+        name: forelegL1
+    - source:
+        name: thorax1
+      destination:
+        name: midlegR1
+    - source:
+        name: thorax1
+      destination:
+        name: midlegL1
+    - source:
+        name: thorax1
+      destination:
+        name: hindlegR1
+    - source:
+        name: thorax1
+      destination:
+        name: hindlegL1
+    symmetries:
+    - - name: forelegR1
+      - name: forelegL1
+    - - name: midlegL1
+      - name: midlegR1
+    - - name: hindlegL1
+      - name: hindlegR1
+    name: Skeleton-0
+model_config:
+  init_weights: default
+  pretrained_backbone_weights: null
+  pretrained_head_weights: null
+  backbone_config:
+    unet:
+      in_channels: 3
+      kernel_size: 3
+      filters: 32
+      filters_rate: 1.5
+      max_stride: 32
+      stem_stride: null
+      middle_block: true
+      up_interpolate: true
+      stacks: 1
+      convs_per_block: 2
+      output_stride: 4
+    convnext: null
+    swint: null
+  head_configs:
+    single_instance:
+      confmaps:
+        part_names:
+        - head1
+        - thorax1
+        - abdomen1
+        - forelegR1
+        - forelegL1
+        - midlegR1
+        - midlegL1
+        - hindlegR1
+        - hindlegL1
+        sigma: 2.5
+        output_stride: 4
+    centroid: null
+    centered_instance: null
+    bottomup: null
+    multi_class_bottomup: null
+    multi_class_topdown: null
+  total_params: 2936824
+trainer_config:
+  train_data_loader:
+    batch_size: 6
+    shuffle: false
+    num_workers: 0
+  val_data_loader:
+    batch_size: 6
+    shuffle: false
+    num_workers: 0
+  model_ckpt:
+    save_top_k: 1
+    save_last: false
+  trainer_devices: auto
+  trainer_device_indices: null
+  trainer_accelerator: auto
+  profiler: null
+  trainer_strategy: auto
+  enable_progress_bar: true
+  min_train_steps_per_epoch: 200
+  train_steps_per_epoch: 200
+  visualize_preds_during_training: true
+  keep_viz: false
+  max_epochs: 200
+  seed: null
+  use_wandb: false
+  save_ckpt: true
+  ckpt_dir: models/drosophila_unet_1_251019_094425
+  run_name: drosophila_unet_1_251019_094425
+  resume_ckpt_path: null
+  wandb:
+    entity: ''
+    project: ''
+    name: ''
+    save_viz_imgs_wandb: false
+    api_key: ''
+    wandb_mode: null
+    prv_runid: ''
+    group: ''
+    current_run_id: null
+  optimizer_name: Adam
+  optimizer:
+    lr: 0.0001
+    amsgrad: false
+  lr_scheduler: null
+  early_stopping:
+    min_delta: 1.0e-08
+    patience: 30
+    stop_training_on_plateau: true
+  online_hard_keypoint_mining:
+    online_mining: false
+    hard_to_easy_ratio: 2.0
+    min_hard_keypoints: 2
+    max_hard_keypoints: null
+    loss_scale: 5.0
+  zmq:
+    controller_port: null
+    controller_polling_timeout: 10
+    publish_port: null
+name: ''
+description: ''
+sleap_nn_version: 0.0.2
+filename: ''
